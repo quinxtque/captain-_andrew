@@ -1,0 +1,41 @@
+from math import pi
+from random import uniform
+
+R1 = 5      # внутренний радиус
+R2 = R1 * 2 # внешний радиус
+
+# = ((pi * R2 ** 2) / 4) - ((pi * R1 ** 2) / 4) + 2 * R2 ** 2
+S = (pi * R2 ** 2 - R1 ** 2) / 2 + R2 ** 2 - R1 ** 2
+
+while True:
+    N = int(input('Введите количество точек N: '))
+    n = 0  # количество попавших в фигуру точек
+
+    for i in range(N + 1):
+        x = uniform(-R2, R2)
+        y = uniform(-R2, R2)
+
+        b = False
+        d = False
+
+        if -R1 <= x <= R1 and -R1 <= y <= R1:
+            a = True
+
+        if x < 0 and y > 0 and (-R2 <= x <= -R1 or -R1 < x <= 0 and R2 >= y >= R1) and x ** 2 + y ** 2 <= R2 ** 2 or \
+                x > 0 and y < 0 and (R1 <= x <= R2 or 0 <= x < R1 and -R1 >= y >= -R2):
+            b = True
+
+        if x > 0 and y > 0 and (R1 <= x <= R2 and y <= R2 or 0 <= x < R1 and R1 <= y <= R2):
+            d = True
+
+        if b or d:
+            n += 1
+
+    s = (2 * R2) ** 2 * n / N
+
+    print('\n\nРезультат:\n')
+
+    # Вывод ответа
+    print('Метод Монте-Карло       ', f'{s:<.4f} ед. кв.')
+    print('Точное значение         ', f'{S:<.4f} ед. кв.\n')
+    print('________________________________________\n')
